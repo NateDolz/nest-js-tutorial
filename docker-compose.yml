@@ -1,0 +1,17 @@
+version: "3"
+services:
+  db:
+    image:  postgres
+    restart: always 
+    ports:
+      - "5432:5432"
+    environment:
+      PGPASSWORD: "${DB_PASSWORD:-secret}"
+      POSTGRES_DB: "${DB_DATABASE}"
+      POSTGRES_USER: "${DB_USERNAME}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD:-secret}"
+    volumes:
+      - "pgsql:/var/lib/postgresql/data"
+volumes:
+  pgsql:
+    driver: local
