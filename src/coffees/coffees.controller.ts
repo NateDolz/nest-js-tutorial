@@ -15,9 +15,7 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
 @Controller('coffees')
 export class CoffeesController {
-  constructor(private readonly coffeesService: CoffeesService) {
-    console.log('here');
-  }
+  constructor(private readonly coffeesService: CoffeesService) {}
 
   @Get()
   findAll(@Query() paginationQuery: PaginationQueryDto) {
