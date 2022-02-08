@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService, ConfigType } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-import { Event } from 'src/events/entities/event.entity';
+// import { Event } from 'src/events/entities/event.entity';
 import { Connection, Repository } from 'typeorm';
 import { COFFEE_BRANDS } from './coffees.constants';
 import coffeesConfig from './config/coffees.config';
@@ -83,30 +83,30 @@ export class CoffeesService {
     this.coffeeRepository.remove(coffee);
   }
 
-  async recommendCoffee(coffee: Coffee) {
-    const queryRunner = this.connection.createQueryRunner();
+  // async recommendCoffee(coffee: Coffee) {
+  //   const queryRunner = this.connection.createQueryRunner();
 
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
+  //   await queryRunner.connect();
+  //   await queryRunner.startTransaction();
 
-    try {
-      coffee.reccomendations++;
+  //   try {
+  //     coffee.reccomendations++;
 
-      const reccomendation = new Event();
-      reccomendation.name = 'reccomend_coffee';
-      reccomendation.type = 'coffee';
-      reccomendation.payload = { coffeeId: coffee.id };
+  //     const reccomendation = new Event();
+  //     reccomendation.name = 'reccomend_coffee';
+  //     reccomendation.type = 'coffee';
+  //     reccomendation.payload = { coffeeId: coffee.id };
 
-      await queryRunner.manager.save(coffee);
-      await queryRunner.manager.save(reccomendation);
+  //     await queryRunner.manager.save(coffee);
+  //     await queryRunner.manager.save(reccomendation);
 
-      await queryRunner.commitTransaction();
-    } catch (err) {
-      await queryRunner.rollbackTransaction();
-    } finally {
-      await queryRunner.release();
-    }
-  }
+  //     await queryRunner.commitTransaction();
+  //   } catch (err) {
+  //     await queryRunner.rollbackTransaction();
+  //   } finally {
+  //     await queryRunner.release();
+  //   }
+  // }
 
   private async preloadFlavorByName(name: string): Promise<Flavor> {
     const flavor = await this.flavorsRepository.findOne({ name });
